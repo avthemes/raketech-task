@@ -37,14 +37,16 @@ include( RT_PLUGIN_PATH . 'inc/setup/init.php' ); // initialization functions
 include( RT_PLUGIN_PATH . 'inc/process/api.php' ); // initialization functions
 include( RT_PLUGIN_PATH . 'inc/process/cache.php' ); // initialization functions
 include( RT_PLUGIN_PATH . 'inc/shortcode/reviews.php' ); // enqueue assets in front-end
-include( RT_PLUGIN_PATH . 'inc/front/enqueue.php' ); // enqueue assets in front-end
+include( RT_PLUGIN_PATH . 'inc/admin/enqueue.php' ); // enqueue assets in front-end
+include( RT_PLUGIN_PATH . 'inc/admin/reviews.php' ); // enqueue assets in front-end
 
 
 // Actions & Hooks
 register_activation_hook( __FILE__, 'rt_activate_plugin' ); // inc/setup/activate.php
 register_deactivation_hook( __FILE__, 'rt_deactivate_plugin' ); // inc/setup/deactivate.php
-add_action('admin_menu', 'rt_create_admin_menu'); // inc/setup/init.php
-//add_action( 'wp_enqueue_scripts', 'rt_enqueue_scripts', 100 ); // inc/front/enqueue.php
+add_action( 'admin_menu', 'rt_create_admin_menu'); // inc/setup/init.php
+add_action( 'admin_enqueue_scripts', 'rt_admin_enqueue' ); // inc/admin/enqueue.php
+add_action( 'wp_ajax_save_review_position', 'rt_admin_save_review_positions' ); // inc/admin/review.php
 
 
 // Shortcodes

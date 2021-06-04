@@ -50,13 +50,27 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 
 		if( isset( $json_data['toplists'][$toplists_key] ) && count( $json_data['toplists'][$toplists_key] ) > 0 ) {
 		
-			usort( $json_data['toplists'][$toplists_key], 'sortByPosition' );
+			$data_id = md5( RT_DATA_API_ENDPOINT . $toplists_key );
+
+			$sorted_list = rt_custom_sort_list( $json_data['toplists'][$toplists_key], $data_id );
 
 			$ver = filemtime( RT_PLUGIN_PATH . $template_css );
         	wp_register_style( 'rt_review_' . $tpl ,  plugins_url( $template_css, RT_PLUGIN_URL ), array(), $ver, 'all' );
 			wp_enqueue_style( 'rt_review_' . $tpl );
 
-			foreach( $json_data['toplists'][$toplists_key] as $review_data ) {
+			$output .= '<table class="rt-reviews"' . ( $tpl == "admin" ? 'data-id="' . $data_id . '"' : '' ) . '>
+							<thead>
+								<tr>
+									' . ( $tpl == "admin" ? '<th></th>' : '' ) . '
+									<th>' . __( 'Casino', 'raketech' ) . '</th>
+									<th>'. __( 'Bonus', 'raketech' ) . '</th>
+									<th class="text-left">' . __( 'Features', 'raketech' ) . '</th>
+									<th>' . __( 'Play', 'raketech' ) . '</th>
+								</tr>
+							</thead>
+							<tbody>';
+
+			foreach( $sorted_list as $review_data ) {
 			
 				ob_start();
 				
@@ -67,11 +81,35 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 				ob_end_clean();
 			}
 
+			$output .= '</tbody></table>';
+
 		}
 	}
 
 	// fail silently
 	return $output;
+}
+
+function rt_custom_sort_list( $list_array, $id ) {
+
+	$user_sorting = get_option( 'raketech_' . $id );
+
+	if( $user_sorting ) {
+
+		foreach( $list_array as $index => $list_item ) {
+
+			$new_position = array_search( (int)$list_item['brand_id'], $user_sorting );
+
+			if( $new_position !== false ) {
+
+				$list_array[ $index ]['position'] = $new_position;
+			}
+		}
+	}
+
+	usort( $list_array, 'sortByPosition' );
+
+	return $list_array;
 }
 
 /**

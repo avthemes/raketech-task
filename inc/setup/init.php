@@ -18,8 +18,8 @@ function rt_create_admin_menu() {
 		__( 'Raketech Reviews', 'raketech' ), // page title
 		__( 'Raketech', 'raketech' ), // Menu title
 		'edit_theme_options', // capability
-		'rt_plugin_opts', // menu slug
-		'rt_plugin_opts_page', // page content function
+		'rt_reviews', // menu slug
+		'rt_admin_review_sorting', // page content function
 		'dashicons-list-view', // menu icon
 		2 // lower values highest position in menu order
 	);

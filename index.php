@@ -27,6 +27,8 @@ define( 'RT_ENABLE_CACHE', FALSE ); // enable caching, generally reading filesys
 define( 'RT_CACHE_EXPIRE', 'hourly' ); // cache expire, possible values: https://developer.wordpress.org/reference/functions/wp_get_schedules/
 define( 'RT_GO_AWAY_MSG', 'Fishing are we? Sorry no fishes here!' );
 
+define( 'RT_DATA_API_ENDPOINT', 'http://213.136.72.173/data.json' ); // URL to data source
+
 
 // Includes
 include( RT_PLUGIN_PATH . 'inc/setup/activate.php' ); // plugin activation functions
@@ -34,6 +36,7 @@ include( RT_PLUGIN_PATH . 'inc/setup/deactivate.php' ); // plugin de-activation 
 include( RT_PLUGIN_PATH . 'inc/setup/init.php' ); // initialization functions
 include( RT_PLUGIN_PATH . 'inc/process/api.php' ); // initialization functions
 include( RT_PLUGIN_PATH . 'inc/process/cache.php' ); // initialization functions
+include( RT_PLUGIN_PATH . 'inc/shortcode/reviews.php' ); // enqueue assets in front-end
 include( RT_PLUGIN_PATH . 'inc/front/enqueue.php' ); // enqueue assets in front-end
 
 
@@ -41,6 +44,7 @@ include( RT_PLUGIN_PATH . 'inc/front/enqueue.php' ); // enqueue assets in front-
 register_activation_hook( __FILE__, 'rt_activate_plugin' ); // inc/setup/activate.php
 register_deactivation_hook( __FILE__, 'rt_deactivate_plugin' ); // inc/setup/deactivate.php
 add_action('admin_menu', 'rt_create_admin_menu'); // inc/setup/init.php
+//add_action( 'wp_enqueue_scripts', 'rt_enqueue_scripts', 100 ); // inc/front/enqueue.php
 
 
 // Shortcodes

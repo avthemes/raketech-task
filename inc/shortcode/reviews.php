@@ -20,7 +20,7 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 	extract(
 		shortcode_atts(
 			array(
-				'toplists_key' 	=> 575,
+				'toplists_key' 	=> RT_DEFAULT_LIST_ID,
 				'cache' 		=> RT_ENABLE_CACHE,
 				'tpl'			=> 'default',
 			), 

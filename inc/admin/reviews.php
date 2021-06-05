@@ -30,7 +30,14 @@ function rt_admin_review_sorting() {
 
 		foreach( $list_ids as $list_id ) { 
 			
-			echo '<option value="' . admin_url( 'admin.php?page=rt_reviews&id=' . $list_id ) . '"' . ( ! empty( $_GET['id'] ) && $_GET['id'] == $list_id ? ' selected' : '') . '>' . $list_id . '</option>';
+			$selected_id = RT_DEFAULT_LIST_ID;
+			
+			if( ! empty( $_GET['id'] ) ) {
+
+				$selected_id = (int)$_GET['id'];
+			}
+			
+			echo '<option value="' . admin_url( 'admin.php?page=rt_reviews&id=' . $list_id ) . '"' . ( $selected_id == $list_id ? ' selected' : '') . '>' . $list_id . '</option>';
 		}
 
 		echo '</select></div>';

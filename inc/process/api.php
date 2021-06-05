@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit( RT_GO_AWAY_MSG );
 /**
  * Fetches data from API endpoint
  */
-function rt_fetch_source_data() {
+function rt_fetch_source_data( $api_url, $ids_only = false ) {
 
 	// fetch data from API endpoint
 	$args = array(
@@ -20,11 +20,31 @@ function rt_fetch_source_data() {
 		)
 	);
 
-	$response = wp_remote_get( RT_DATA_API_ENDPOINT, $args );
+	$response = wp_remote_get( $api_url, $args );
 
 	// check for errors
 	if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 		
+		if( $ids_only ) {
+
+			$json_data = @json_decode( $response['body'], true );
+
+			if( ! empty( $json_data['toplists'] ) ) {
+			
+				foreach( $json_data['toplists'] as $list_id => $list_item ) {
+
+					if( ! empty( $list_item ) ) {
+					
+						$output[] = $list_id;
+					}
+				}
+
+				return $output;
+			}
+
+			return false;
+		}
+
 		return $response['body']; // use the content
 	}
 

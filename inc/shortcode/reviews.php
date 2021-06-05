@@ -59,11 +59,11 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 	}
 
 	// fetching source data
-	if( $source_data = rt_fetch_source_data() ) {
+	if( $source_data = rt_fetch_source_data( RT_DATA_API_ENDPOINT ) ) {
 
 		$json_data = @json_decode( $source_data, true );
 
-		if( isset( $json_data['toplists'][$toplists_key] ) && count( $json_data['toplists'][$toplists_key] ) > 0 ) {
+		if( ! empty( $json_data['toplists'][$toplists_key] ) ) {
 
 			$sorted_list = rt_custom_sort_list( $json_data['toplists'][$toplists_key], $data_id );
 

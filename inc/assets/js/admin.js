@@ -31,4 +31,12 @@ jQuery( function() {
 				jQuery('.save-status').html( msg.response );
 			});
 	});
+
+	jQuery(document).on( 'change', '#select-list', function() {
+
+		var href = jQuery(this).val();
+		
+		document.location.href=href;
+	});
+
 } );

@@ -10,23 +10,41 @@ defined( 'ABSPATH' ) || exit( RT_GO_AWAY_MSG );
 
 function rt_admin_review_sorting() {
 
+	$list_ids = rt_fetch_source_data( RT_DATA_API_ENDPOINT, true );
+
 	echo '<div class="wrap"><div id="poststuff"><div id="post-body" class="metabox-holder"><div id="post-body-content"><div class="postbox">';
 
 	echo '<h1>' . esc_attr( 'Reviews Sorting', 'raketech' ) . '</h1>';
 
 	echo '<p class="instructions">Click and drag the arrows to sort the reviews</p>';
 
-	echo '<div class="btns" style="padding-bottom: 0;"><input class="button-primary btn-save" type="button" name="Example" value="' . esc_attr( 'Save new positions' ) . '" /> ';
+	echo '<div class="btns" style="padding-bottom: 0;"><input class="button-primary btn-save" type="button" value="' . esc_attr( 'Save new positions' ) . '" /> ';
 
-	echo '<span class="save-status"></span></div>';
+	echo '<span class="save-status"></span>';
+	
+	if( $list_ids ) {
+		
+		echo '<div class="select-list">Review List ID: <select id="select-list">';
+		
+		echo '<option value=""> - select - </option>';
 
-	echo '<div id="review-container">';
+		foreach( $list_ids as $list_id ) { 
+			
+			echo '<option value="' . admin_url( 'admin.php?page=rt_reviews&id=' . $list_id ) . '"' . ( ! empty( $_GET['id'] ) && $_GET['id'] == $list_id ? ' selected' : '') . '>' . $list_id . '</option>';
+		}
 
-	echo do_shortcode( '[rt_reviews cache="false" tpl="admin"]' );
+		echo '</select></div>';
+	}
+
+	echo '</div><div id="review-container">';
+
+	$shortcode = '[rt_reviews cache="false" tpl="admin"' . ( ! empty( $_GET['id'] ) ? ' toplists_key="' . (int)$_GET['id'] . '"' : '' ) . ']';
+
+	echo do_shortcode( $shortcode );
 
 	echo '</div>';
 
-	echo '<div class="btns"><input class="button-primary btn-save" type="button" name="Example" value="' . esc_attr( 'Save new positions' ) . '" /> ';
+	echo '<div class="btns"><input class="button-primary btn-save" type="button" value="' . esc_attr( 'Save new positions' ) . '" /> ';
 
 	echo '<span class="save-status"></span></div>';
 

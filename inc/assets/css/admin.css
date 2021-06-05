@@ -9,7 +9,8 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 #review-container { padding: 30px; }
 table.rt-reviews { border: 1px solid #000; }
 table.rt-reviews .admin-cell { background-color:#eee;border-right:1px solid #000; cursor: pointer; }
-.btns { padding: 30px; padding-top: 0; }
+.btns { padding: 30px; padding-top: 0; clear: both; }
 .save-status { padding-left: 20px; }
 .rt-success { color: green; font-weight: bold; }
 .rt-fail { color: #DC3232; font-weight: bold; }
+.select-list { float: right; }

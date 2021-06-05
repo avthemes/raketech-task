@@ -65,6 +65,11 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 			return $cached_html;
 		}
 	}
+	else {
+
+		// delete existing cache file if exists
+		rt_cache_delete( $data_id );
+	}
 
 	// Caching not enable then fetching source data from API
 	if( $source_data = rt_fetch_source_data( RT_DATA_API_ENDPOINT ) ) {

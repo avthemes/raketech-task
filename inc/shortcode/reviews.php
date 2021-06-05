@@ -65,11 +65,6 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 			return $cached_html;
 		}
 	}
-	else {
-
-		// delete existing cache file if exists
-		rt_cache_delete( $data_id );
-	}
 
 	// Caching not enable then fetching source data from API
 	if( $source_data = rt_fetch_source_data( RT_DATA_API_ENDPOINT ) ) {
@@ -84,6 +79,7 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 			$sorted_list = rt_custom_sort_list( $json_data['toplists'][$toplists_key], $data_id );
 
 			// HTML table headers
+			$output .= '<div id="rt-review-' . ( $tpl == "admin" ? 'default' : $tpl ) . '">';
 			$output .= '<table class="rt-reviews"' . ( $tpl == "admin" ? 'data-id="' . $data_id . '"' : '' ) . '>
 							<thead>
 								<tr>
@@ -109,7 +105,7 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 			}
 
 			// close table body
-			$output .= '</tbody></table>';
+			$output .= '</tbody></table></div>';
 
 			// if caching is enabled and template is not admin
 			if( (bool)$cache === TRUE && $tpl != "admin" ) {

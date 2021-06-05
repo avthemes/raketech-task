@@ -18,8 +18,16 @@ function rt_admin_enqueue() {
 		wp_enqueue_style( 'rt_admin' );
 
 		wp_register_script( 'rt_jquery_ui', plugins_url( 'inc/assets/js/jquery-ui.min.js', RT_PLUGIN_URL ), [ 'jquery' ], NULL, TRUE );
-		wp_register_script( 'rt_admin', plugins_url( 'inc/assets/js/admin.js', RT_PLUGIN_URL ), [ 'jquery' ], NULL, TRUE );
+
+		$ver = filemtime( RT_PLUGIN_PATH . 'inc/assets/js/admin.js' );
+		wp_register_script( 'rt_admin', plugins_url( 'inc/assets/js/admin.js', RT_PLUGIN_URL ), [ 'jquery' ], $ver, TRUE );
 		wp_enqueue_script( 'rt_jquery_ui' );
 		wp_enqueue_script( 'rt_admin' );
+
+		$params = array(
+			'rt_security' => wp_create_nonce( 'rt_reviews' ),
+		);
+
+		wp_localize_script( 'rt_admin', 'rt_ajax_object', $params );
 	}
 }

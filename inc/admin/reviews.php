@@ -36,6 +36,8 @@ function rt_admin_review_sorting() {
 
 function rt_admin_save_review_positions() {
 
+	check_ajax_referer( 'rt_reviews', 'security' );
+
     $reponse = array();
 
     if( ! empty( $_POST['positions'] ) && ! empty( $_POST['id'] ) ){

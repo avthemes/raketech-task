@@ -20,7 +20,12 @@ jQuery( function() {
 		jQuery.ajax({
 				type: "POST",
 				url: ajaxurl,
-				data: { action: 'save_review_position' , id: data_id, positions: sortedIDs }
+				data: { 
+					action: 'save_review_position' , 
+					security: rt_ajax_object.rt_security,
+					id: data_id, 
+					positions: sortedIDs 
+				}
 			}).done(function( msg ) {
 				
 				jQuery('.save-status').html( msg.response );

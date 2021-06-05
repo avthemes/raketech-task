@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit( RT_GO_AWAY_MSG );
  */
 function rt_create_admin_menu() {
 
+	// add ad admin menu page for the plugin
 	add_menu_page(
 		__( 'Raketech Reviews', 'raketech' ), // page title
 		__( 'Raketech', 'raketech' ), // Menu title

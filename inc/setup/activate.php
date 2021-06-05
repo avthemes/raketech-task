@@ -19,10 +19,4 @@ function rt_activate_plugin() {
 
         wp_die( __( 'You must update WordPress to a version greater than 5.0 to use this plugin.', 'raketech' ) );
     }
-
-	// if caching config is true, add a schedule event to refresh the data at a specified interval (RT_CACHE_EXPIRE)
-	if( RT_ENABLE_CACHE ) {
-	
-		wp_schedule_event( time(), RT_CACHE_EXPIRE, 'rt_refresh_cache' );
-	}
 }

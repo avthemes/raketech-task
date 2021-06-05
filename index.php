@@ -2,7 +2,7 @@
 
 /**
 * Plugin Name: Raketech Task
-* Plugin URI: http://wprecipe.com
+* Plugin URI: https://raketech.webcoders.dev
 * Description: Consume a review API and display formatted HTML to users.
 * Version: 1.0
 * Author: Ravi Ramroop
@@ -25,7 +25,7 @@ define( 'RT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) ); // absolute path to plu
 define( 'RT_PLUGIN_URL', __FILE__ ); // plugin URI
 define( 'RT_ENABLE_CACHE', TRUE ); // enable caching, generally reading filesystem is faster than fetching a remote API endpoint.
 define( 'RT_CACHE_EXPIRE', 1 ); // cache expire, in hours
-define( 'RT_GO_AWAY_MSG', 'Fishing are we? Sorry no fishes here!' );
+define( 'RT_GO_AWAY_MSG', 'Fishing are we? Sorry no fishes here!' ); // Message to show when trying to access the plugin files directly
 
 define( 'RT_DATA_API_ENDPOINT', 'http://213.136.72.173/data.json' ); // URL to data source
 

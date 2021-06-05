@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit( "Going fishing are we? Sorry no fishes here!" );
 
 // Plugin setup and options
 // Constant values can also come from options table if settings administered in wp-admin.
-define( 'RT_DEV_MODE', TRUE ); // change 'FALSE' on PRODUCTION site
+define( 'RT_DEFAULT_LIST_ID', 575 ); // change 'FALSE' on PRODUCTION site
 define( 'RT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) ); // absolute path to plugin
 define( 'RT_PLUGIN_URL', __FILE__ ); // plugin URI
 define( 'RT_ENABLE_CACHE', TRUE ); // enable caching, generally reading filesystem is faster than fetching a remote API endpoint.

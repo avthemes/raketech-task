@@ -43,20 +43,29 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 		$template_css = 'inc/front/tpl/' . $tpl . '.css';
 	}
 
+	$data_id = md5( RT_DATA_API_ENDPOINT . $toplists_key );
+
+	$ver = filemtime( RT_PLUGIN_PATH . $template_css );
+    wp_register_style( 'rt_review_' . $tpl ,  plugins_url( $template_css, RT_PLUGIN_URL ), array(), $ver, 'all' );
+	wp_enqueue_style( 'rt_review_' . $tpl );
+
+	// check if caching is enabled and retrieve file from cache
+	if( RT_ENABLE_CACHE === TRUE && $tpl != "admin" ) {
+
+		if( $cached_html = rt_cache_get_review( $data_id ) ) {
+
+			return $cached_html;
+		}
+	}
+
 	// fetching source data
 	if( $source_data = rt_fetch_source_data() ) {
 
 		$json_data = @json_decode( $source_data, true );
 
 		if( isset( $json_data['toplists'][$toplists_key] ) && count( $json_data['toplists'][$toplists_key] ) > 0 ) {
-		
-			$data_id = md5( RT_DATA_API_ENDPOINT . $toplists_key );
 
 			$sorted_list = rt_custom_sort_list( $json_data['toplists'][$toplists_key], $data_id );
-
-			$ver = filemtime( RT_PLUGIN_PATH . $template_css );
-        	wp_register_style( 'rt_review_' . $tpl ,  plugins_url( $template_css, RT_PLUGIN_URL ), array(), $ver, 'all' );
-			wp_enqueue_style( 'rt_review_' . $tpl );
 
 			$output .= '<table class="rt-reviews"' . ( $tpl == "admin" ? 'data-id="' . $data_id . '"' : '' ) . '>
 							<thead>
@@ -83,6 +92,14 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 
 			$output .= '</tbody></table>';
 
+			if( RT_ENABLE_CACHE === TRUE && $tpl != "admin" ) {
+
+				$cached_output = $output . '<!-- RT cached @' . date( 'Y-m-d H:i:s' ) . ' -->';
+
+				rt_cache_save_review( $cached_output, $data_id );
+			}
+
+			return $output;
 		}
 	}
 

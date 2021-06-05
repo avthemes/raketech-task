@@ -23,8 +23,8 @@ defined( 'ABSPATH' ) || exit( "Going fishing are we? Sorry no fishes here!" );
 define( 'RT_DEV_MODE', TRUE ); // change 'FALSE' on PRODUCTION site
 define( 'RT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) ); // absolute path to plugin
 define( 'RT_PLUGIN_URL', __FILE__ ); // plugin URI
-define( 'RT_ENABLE_CACHE', FALSE ); // enable caching, generally reading filesystem is faster than fetching a remote API endpoint.
-define( 'RT_CACHE_EXPIRE', 'hourly' ); // cache expire, possible values: https://developer.wordpress.org/reference/functions/wp_get_schedules/
+define( 'RT_ENABLE_CACHE', TRUE ); // enable caching, generally reading filesystem is faster than fetching a remote API endpoint.
+define( 'RT_CACHE_EXPIRE', 1 ); // cache expire, in hours
 define( 'RT_GO_AWAY_MSG', 'Fishing are we? Sorry no fishes here!' );
 
 define( 'RT_DATA_API_ENDPOINT', 'http://213.136.72.173/data.json' ); // URL to data source

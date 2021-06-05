@@ -45,6 +45,12 @@ function rt_admin_save_review_positions() {
 		$response['response'] = '<span class="rt-success">' . esc_html( 'Positions saved', 'raketech' ) . ' @' . date( 'H:i:s' ) . '</span>';
 
 		update_option( 'raketech_' . $_POST['id'], $_POST['positions'], 'no' );
+
+		// delete cached file if it exists
+		if( RT_ENABLE_CACHE === TRUE ) {
+			
+			rt_cache_delete( $_POST['id'] );
+		}
     } 
 	else {
          

@@ -57,7 +57,7 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 	wp_enqueue_style( 'rt_review_' . $tpl );
 
 	// check if caching is enabled and template is not admin
-	if( RT_ENABLE_CACHE === TRUE && $tpl != "admin" ) {
+	if( (bool)$cache === TRUE && $tpl != "admin" ) {
 
 		// retrieve file from cache and on success return the cached version
 		if( $cached_html = rt_cache_get_review( $data_id ) ) {
@@ -107,7 +107,7 @@ function rt_frontend_reviews_shortcode( $attr, $content = null ) {
 			$output .= '</tbody></table>';
 
 			// if caching is enabled and template is not admin
-			if( RT_ENABLE_CACHE === TRUE && $tpl != "admin" ) {
+			if( (bool)$cache === TRUE && $tpl != "admin" ) {
 
 				// add cache timestamp at the end of rendered HTML
 				$cached_output = $output . '<!-- RT cached @' . date( 'Y-m-d H:i:s' ) . ' -->';

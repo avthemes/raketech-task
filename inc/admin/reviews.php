@@ -60,7 +60,7 @@ function rt_admin_review_sorting() {
 
 	echo '<div class="btns"><input class="button-primary btn-save" type="button" value="' . esc_attr( 'Save new positions' ) . '" /> ';
 
-	echo '<span class="save-status"></span></div>';
+	echo '<span class="save-status"></span><div class="select-list"><a href="javascript:void(0);" style="color:#cc0000;" id="flush-cache">&orarr; Flush cache</a></div></div>';
 
 	echo '</div></div></div></div></div>';
 }
@@ -97,6 +97,37 @@ function rt_admin_save_review_positions() {
 		// response error message
 		$response['response'] = '<span class="rt-fail">' . esc_html( 'Error saving positions', 'raketech' ) . ' @' . date( 'H:i:s' ) . '</span>';
     }
+
+	// set response header to application/json and echo json encoded response
+    header( "Content-Type: application/json" );
+    echo json_encode( $response );
+
+    // Never forget to always exit in the ajax function.
+    exit;
+}
+
+
+function rt_admin_clear_cache() {
+
+	// validate wp_nonce for security
+	check_ajax_referer( 'rt_reviews', 'security' );
+ 
+	// get all the file names from the cache directory
+	$files = glob( RT_PLUGIN_PATH . 'cache/*' );
+
+	 // iterate files
+	foreach( $files as $file ) {
+		
+		// if is file
+		if( is_file( $file ) ) {
+		  
+			// delete file
+			@unlink( $file );
+		}
+	}
+
+	// response success message
+	$response['response'] = '<span class="rt-success">' . esc_html( 'Cached files successfully deleted', 'raketech' ) . ' @' . date( 'H:i:s' ) . '</span>';
 
 	// set response header to application/json and echo json encoded response
     header( "Content-Type: application/json" );

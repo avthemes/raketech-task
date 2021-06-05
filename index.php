@@ -46,7 +46,8 @@ register_activation_hook( __FILE__, 'rt_activate_plugin' ); // inc/setup/activat
 register_deactivation_hook( __FILE__, 'rt_deactivate_plugin' ); // inc/setup/deactivate.php
 add_action( 'admin_menu', 'rt_create_admin_menu'); // inc/setup/init.php
 add_action( 'admin_enqueue_scripts', 'rt_admin_enqueue' ); // inc/admin/enqueue.php
-add_action( 'wp_ajax_save_review_position', 'rt_admin_save_review_positions' ); // inc/admin/review.php
+add_action( 'wp_ajax_rt_save_review_position', 'rt_admin_save_review_positions' ); // inc/admin/review.php
+add_action( 'wp_ajax_rt_clear_cache', 'rt_admin_clear_cache' ); // inc/admin/review.php
 
 
 // Shortcodes

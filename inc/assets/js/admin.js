@@ -21,7 +21,7 @@ jQuery( function() {
 				type: "POST",
 				url: ajaxurl,
 				data: { 
-					action: 'save_review_position' , 
+					action: 'rt_save_review_position' , 
 					security: rt_ajax_object.rt_security,
 					id: data_id, 
 					positions: sortedIDs 
@@ -37,6 +37,28 @@ jQuery( function() {
 		var href = jQuery(this).val();
 		
 		document.location.href=href;
+	});
+
+	jQuery(document).on('click', '#flush-cache', function() {
+
+		var res = confirm('Are you sure you want to delete the cached files?');
+
+		if( res == true ) {
+
+			jQuery('.save-status').html( '<i>clearing cache...</i>' );
+
+			jQuery.ajax({
+				type: "POST",
+				url: ajaxurl,
+				data: { 
+					action: 'rt_clear_cache' , 
+					security: rt_ajax_object.rt_security,
+				}
+			}).done(function( msg ) {
+				
+				jQuery('.save-status').html( msg.response );
+			});
+		}
 	});
 
 } );

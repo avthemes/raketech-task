@@ -1,5 +1,5 @@
 /* CSS style applies only to tables with .rt-reviews class and not mess up other tables on the same page */
-table.rt-reviews { border-collapse: collapse; text-align: center; width: 100%; font-size: 14px; line-height: 1.5; }
+table.rt-reviews { border-collapse: collapse; text-align: center; width: 100%; font-size: 14px; line-height: 1.5; border: 1px solid #000; border-bottom: 0; }
 table.rt-reviews tr { background: white; border-bottom: 1px solid }
 table.rt-reviews th { background-color: #ffcc00; text-align: center; color: #000; }
 table.rt-reviews th, table.rt-reviews td { padding: 10px 20px; }

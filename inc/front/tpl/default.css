@@ -21,12 +21,13 @@
 #rt-review-default table.rt-reviews .m-only { display: none; text-align: center; background-color: #ddd; margin-bottom: 10px; }
 
 /* Simple CSS for flexbox table on mobile */
-@media(max-width: 768px) {
+@media (min-width: 635px) and (max-width: 768px) {
 	#rt-review-default table.rt-reviews thead { left: -9999px; position: absolute; visibility: hidden; }
     #rt-review-default table.rt-reviews tr { border-bottom: 0; display: flex; flex-direction: row; flex-wrap: wrap; margin-bottom: 40px; }
     #rt-review-default table.rt-reviews td { border: 1px solid; margin: 0 -1px -1px 0; position: relative; width: 50%; }
     #rt-review-default table.rt-reviews td span { display: block; }
 	#rt-review-default table.rt-reviews .m-only { display: block; }
+	#rt-review-default table.rt-reviews { border: 0px !important; }
 }
 @media(max-width: 400px) { 
 	#rt-review-default table.rt-reviews { border: 0px !important; }
